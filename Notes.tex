@@ -72,4 +72,16 @@
 \subsection{Breadth First Search}
 \lstinputlisting[language=C++]{code-snippets/breadth-first-search.cpp}
 
+
+\section{Formulas}
+
+\subsection{Combinatorics}
+\begin{tabular}{ | l | c | c |}
+  \hline
+   & Mit Reihenfolge & Ohne Reihenfolge \\ \hline
+   Mit Wiederholung & $n^k$ & $\left( {n+k-1} \atop k \right)$  \\ \hline
+   Ohne Wiederholung & $\frac{n!}{\left( n-k \right) !}$ & $\frac{n!}{\left( n-k \right) !\cdot k!} = \left( n \atop k \right)$  \\ \hline
+\end{tabular}
+
+
 \end{document}
