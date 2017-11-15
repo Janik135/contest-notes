@@ -62,8 +62,7 @@ int main() { // example
     g.addEdge(2, 3);
     g.addEdge(3, 3);
  
-    cout << "Following is Breadth First Traversal "
-         << "(starting from vertex 2) \n";
+    cout << "Following is Breadth First Traversal (starting from vertex 2)" << endl;
     g.BFS(2);
  
     return 0;

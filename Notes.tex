@@ -1,11 +1,11 @@
-\documentclass[]{article}
+\documentclass[11pt,twocolumn]{article}
 
-\usepackage[a4paper,includeheadfoot,margin=1.8cm]{geometry}
+\usepackage[a4paper,includeheadfoot,margin=1cm]{geometry}
 \usepackage{graphicx}
 \usepackage{listings}
 \usepackage{xcolor}
 
-
+\setlength{\columnsep}{1cm}
 
 \definecolor{mygreen}{rgb}{0,0.6,0}
 \definecolor{mygray}{rgb}{0.5,0.5,0.5}
@@ -42,7 +42,7 @@
 
 %opening
 \title{Contest Notes}
-\author{Marcus Legendre}
+\author{Marcus Legendre, Kevin Rabe, Sebastian Müller, Andreas Ohmer}
 \date{}
 
 \begin{document}
@@ -72,6 +72,9 @@
 \subsection{Breadth First Search}
 \lstinputlisting[language=C++]{code-snippets/breadth-first-search.cpp}
 
+\subsection{Depth First Search}
+\lstinputlisting[language=C++]{code-snippets/depth-first-search.cpp}
+
 
 \section{Formulas}
 
@@ -79,8 +82,8 @@
 \begin{tabular}{ | l | c | c |}
   \hline
    & Mit Reihenfolge & Ohne Reihenfolge \\ \hline
-   Mit Wiederholung & $n^k$ & $\left( {n+k-1} \atop k \right)$  \\ \hline
-   Ohne Wiederholung & $\frac{n!}{\left( n-k \right) !}$ & $\frac{n!}{\left( n-k \right) !\cdot k!} = \left( n \atop k \right)$  \\ \hline
+   Mit Wdh & $n^k$ & $\left( {n+k-1} \atop k \right)$  \\ \hline
+   Ohne Wdh & $\frac{n!}{\left( n-k \right) !}$ & $\frac{n!}{\left( n-k \right) !\cdot k!} = \left( n \atop k \right)$  \\ \hline
 \end{tabular}
 
 
