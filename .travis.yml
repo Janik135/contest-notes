@@ -3,6 +3,7 @@ before_install:
 script:
 - mkdir _build
 - pdflatex -interaction=nonstopmode -output-directory _build Notes.tex
+- pdflatex -interaction=nonstopmode -output-directory _build Notes.tex
 deploy:
   provider: releases
   api_key: $GITHUB_TOKEN
