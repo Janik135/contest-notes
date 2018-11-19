@@ -9,7 +9,7 @@ int main(){
 		do{
 			string str;
 			input >> str;
-			// do something with integers
+			// do something with doubles
 			if(str[0]>='0' && str[0]<='9'){
 				double d;
 				stringstream ss;
