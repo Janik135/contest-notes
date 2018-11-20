@@ -2,40 +2,45 @@
 #include <vector>
 using namespace std;
 
-int CeilIndex(vector<int> &v, int l, int r, int key) {
-	while (r - l > 1) {
-		int m = l + (r - l) / 2;
-		if (v[m] >= key)
-			r = m;
-		else
-			l = m;
-	}
-	return r;
+void printLIS(vector<int>& arr)
+{
+    for (int x : arr)
+        cout << x << " ";
+    cout << endl;
 }
 
-int LongestIncreasingSubsequenceLength(vector<int> &v) {
-	if (v.size() == 0)
-		return 0;
+void constructPrintLIS(int arr[], int n)
+{
+    vector<vector<int> > L(n);
 
-	vector<int> tail(v.size(), 0);
-	int length = 1;
+    L[0].push_back(arr[0]);
 
-	tail[0] = v[0];
-	for (size_t i = 1; i < v.size(); i++) {
-		if (v[i] < tail[0])
-			tail[0] = v[i];
-		else if (v[i] > tail[length - 1])
-			tail[length++] = v[i];
-		else
-			tail[CeilIndex(tail, -1, length - 1, v[i])] = v[i];
-	}
-	for (int i = 0; i < length; i++) {
-		cout << tail[i] << endl;
-	}
-	return length;
+    for (int i = 1; i < n; i++)
+    {
+        for (int j = 0; j < i; j++)
+        {
+            if ((arr[i] > arr[j]) &&
+                    (L[i].size() < L[j].size() + 1))
+                L[i] = L[j];
+        }
+        L[i].push_back(arr[i]);
+    }
+
+    vector<int> max = L[0];
+
+    for (vector<int> x : L)
+        if (x.size() > max.size())
+            max = x;
+
+    printLIS(max);
 }
-int main() {
-	vector<int> v { 2, 5, 3, 7, 11, 8, 10, 13, 6 };
-	cout << "Length of LIS is " << LongestIncreasingSubsequenceLength(v);
-	return 0;
+
+int main() // example
+{
+    int arr[] = { 5, 19, 5, 81, 50, 28, 29, 1, 83, 23 };
+    int n = sizeof(arr) / sizeof(arr[0]);
+
+    constructPrintLIS(arr, n);
+
+    return 0;
 }
