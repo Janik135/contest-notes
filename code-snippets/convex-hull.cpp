@@ -1,56 +1,76 @@
-#include <algorithm>
 #include <iostream>
 #include <vector>
+#include <set>
+#include <algorithm>
 using namespace std;
 
-typedef double coord_t;
-typedef double coord2_t;
-
-struct Point {
-	coord_t x, y;
-
-	bool operator <(const Point &p) const {
+class Point {
+public:
+	int x, y;
+	Point(int xone = 0, int yone = 0) {
+		x = xone;
+		y = yone;
+	}
+	bool operator <(const Point p) const {
 		return x < p.x || (x == p.x && y < p.y);
+	}
+	bool operator ==(const Point p) const {
+		return x == p.x && y == p.y;
 	}
 };
 
-coord2_t cross(const Point &O, const Point &A, const Point &B) {
-	return (A.x - O.x) * (B.y - O.y) - (A.y - O.y) * (B.x - O.x);
+int crossProduct(Point a, Point b, Point c) {
+	return (b.x - a.x) * (c.y - a.y) - (b.y - a.y) * (c.x - a.x);
 }
 
-vector<Point> convex_hull(vector<Point> P) {
-	int n = P.size(), k = 0;
-	if (n == 1) return P;
-	vector<Point> H(2*n);
+vector<Point> convexHull(vector<Point> p) {
+	int n = p.size(), k = 0;
+	if (n < 3){
+		if (n == 2 && p[0] == p[1]) return {p[0]};
+		return p;
+	}
+	sort(p.begin(), p.end());
+	vector<Point> hull(2 * n);
 
-	sort(P.begin(), P.end());
-
+	// Lower hull
 	for (int i = 0; i < n; ++i) {
-		while (k >= 2 && cross(H[k-2], H[k-1], P[i]) <= 0) k--;
-		H[k++] = P[i];
+		while (k >= 2 && crossProduct(hull[k - 2], hull[k - 1], p[i]) <= 0)
+			k--;
+		hull[k++] = p[i];
 	}
+	int temp = k + 1;
 
-	for (int i = n-2, t = k+1; i >= 0; i--) {
-		while (k >= t && cross(H[k-2], H[k-1], P[i]) <= 0) k--;
-		H[k++] = P[i];
+	// Upper hull
+	for (int i = n - 1; i > 0; --i) {
+		while (k >= temp
+				&& crossProduct(hull[k - 2], hull[k - 1], p[i - 1]) <= 0)
+			k--;
+		hull[k++] = p[i - 1];
 	}
-
-	H.resize(k-1);
-	return H;
+	hull.resize(k - 1);
+	return hull;
 }
 
 int main() {
-    long n;
-    double x, y;
-    cin >> n;
+	int n = 0;
+	cin >> n;
+	while (n != 0) {
 
-    vector<struct Point> points;
-    while (n--) {
-        cin >> x >> y;
-        struct Point p = {x, y};
-        points.push_back(p);
-    };
-    vector<struct Point> hull = convex_hull(points);
-    // ...
-    return 0;
+		set<Point> s;
+		while (n--) {
+			int x = 0, y = 0;
+			cin >> x >> y;
+			s.insert(Point(x, y));
+		}
+		vector<Point> points (begin(s),end(s));
+		vector<Point> hull = convexHull(points);
+
+		cout << hull.size() << endl;
+		for (auto h : hull) {
+			cout << h.x << " " << h.y << endl;
+		}
+
+		cin >> n;
+	}
+	return 0;
 }
